@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hymn</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #lyrics { white-space: pre-line; }
+    </style>
+</head>
+<body>
+    <h1 id="title">Hymn Lyrics</h1>
+    <p id="lyrics">Loading...</p>
+    <a href="toc.html">Back to Table of Contents</a>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const hymnTitle = urlParams.get('hymn');
+        const hymns = JSON.parse(localStorage.getItem('hymns')) || [];
+
+        const hymn = hymns.find(h => h.title === hymnTitle);
+
+        if (hymn) {
+            document.getElementById('title').textContent = hymn.title;
+            document.getElementById('lyrics').textContent = hymn.lyrics;
+        } else {
+            document.getElementById('title').textContent = "Hymn Not Found";
+            document.getElementById('lyrics').textContent = "This hymn does not exist.";
+        }
+    </script>
+</body>
+</html>
